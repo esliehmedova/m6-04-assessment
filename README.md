@@ -35,7 +35,7 @@ pip install ultralytics torch torchvision matplotlib pandas pillow opencv-python
 
 The `ultralytics` package (version 8.4.38 or later) gives you YOLO26 training, validation, prediction, and export in a single API.
 
-## Why YOLO26 (and Why This Counts as "CNN Training")
+## Why YOLO26 (and Why This Counts as "CNN Training") 
 
 YOLO26 is a fully convolutional detector. Its backbone is the same kind of **conv → BatchNorm → ReLU** block you met on Day 03, just stacked into a deeper, more sophisticated architecture optimised for detection. When you call `model.train(...)`, you are training a CNN — exactly the kind of model the lessons prepared you for. The Ultralytics API takes care of the detection-specific machinery (anchor-free heads, loss functions, NMS-free decoding) so you can focus on the data, training dynamics, and evaluation.
 
@@ -72,24 +72,24 @@ All four coordinates are normalised to `[0, 1]` relative to the image dimensions
 
 ## Requirements
 
-Work in a single Jupyter Notebook called **`m6-04-assessment.ipynb`** at the root of your repository. Push the notebook (and a small `data.yaml` config file you'll create) to your fork.
+Work in a single Jupyter Notebook called **`m6-04-assessment.ipynb`** at the root of your repository. Push the notebook (and a small `data.yaml` config file you'll create) to your fork. 
 
 ## Tasks
 
-### Task 1 — Inspect the Dataset
+### Task 1 — Inspect the Dataset 
 
-1. Walk the dataset folder and report:
-   - Number of images and number of label files
-   - Whether every image has a matching label file (and vice versa)
-   - The set of class IDs used and the per-class object count (a small table or bar chart is fine)
-   - Image size statistics — pick 100 random images and report min/max/mean width and height
-2. Pick **6 random images** and visualise them in a 2×3 grid with their bounding boxes drawn on top. Label each box with its class name.
+1. Walk the dataset folder and report: 
+   - Number of images and number of label files 
+   - Whether every image has a matching label file (and vice versa) 
+   - The set of class IDs used and the per-class object count (a small table or bar chart is fine) 
+   - Image size statistics — pick 100 random images and report min/max/mean width and height 
+2. Pick **6 random images** and visualise them in a 2×3 grid with their bounding boxes drawn on top. Label each box with its class name. 
 
-> Implementation hint: you can read the YOLO label file, denormalise the coordinates, and use `matplotlib.patches.Rectangle` to draw boxes.
+> Implementation hint: you can read the YOLO label file, denormalise the coordinates, and use `matplotlib.patches.Rectangle` to draw boxes. 
 
-### Task 2 — Build Train / Val / Test Splits
+### Task 2 — Build Train / Val / Test Splits 
 
-YOLO uses simple text-file splits.
+YOLO uses simple text-file splits. 
 
 1. Shuffle the image list with a fixed seed (e.g. `random.seed(42)`) and split it into roughly **70 / 15 / 15** train / val / test.
 2. Write three text files: `train.txt`, `val.txt`, `test.txt`, each containing one absolute or relative image path per line.
@@ -105,7 +105,7 @@ names:
   # add other classes if your label files use them
 ```
 
-Adjust the `names` mapping to whatever class IDs your labels actually use.
+Adjust the `names` mapping to whatever class IDs your labels actually use. 
 
 ### Task 3 — Pick a YOLO26 Variant and Train It
 
@@ -136,19 +136,19 @@ results = model.train(
     data="data.yaml",
     epochs=30,
     imgsz=640,
-    batch=16,            # adjust to your hardware (smaller for bigger variants / less VRAM)
+    batch=16,            # adjust to your hardware (smaller for bigger variants / less VRAM)  
     project="runs",
-    name="cats_v1",
+    name="cats_v1", 
     seed=42,
 )
 ```
 
-3. Inspect the training logs / `results.png`. Report:
-   - Best mAP@0.5 and mAP@0.5:0.95 achieved on the validation set
-   - The epoch at which the best validation mAP was reached
-   - Visible signs of overfitting (training loss decreasing while validation mAP plateaus or drops)
-   - One sentence reflecting on whether your variant choice felt right in hindsight (under-trained? over-fitting? plenty of headroom?). This will inform your Week-2 improvement runs.
-
+3. Inspect the training logs / `results.png`. Report: 
+   - Best mAP@0.5 and mAP@0.5:0.95 achieved on the validation set 
+   - The epoch at which the best validation mAP was reached 
+   - Visible signs of overfitting (training loss decreasing while validation mAP plateaus or drops) 
+   - One sentence reflecting on whether your variant choice felt right in hindsight (under-trained? over-fitting? plenty of headroom?). This will inform your Week-2 improvement runs. 
+ 
 ### Task 4 — Evaluate on the Test Set
 
 1. Run validation explicitly on the **test** split using the best checkpoint:
